@@ -1,14 +1,13 @@
     
 if (process.env.NODE_ENV !== 'production') {
     require('dotenv').load()
-  }
-
-
+  } 
 const express= require('express');
 const app=express();
-const expressLayouts = require('express-ejs-layouts')
+const expressLayouts = require('express-ejs-layouts');
 
-const indexRouter=require('./routes/index')
+const indexRouter=require('./routes/index');
+const dataRouter = require('./routes/data-element');
 
 app.set('view engine', 'ejs');
 app.set('views',__dirname +'/views')
@@ -28,6 +27,6 @@ db.on('error',()=>{
   });
 
 app.use('/', indexRouter)
-
+app.use('/data',dataRouter)
 
 app.listen(process.env.PORT||3000)
