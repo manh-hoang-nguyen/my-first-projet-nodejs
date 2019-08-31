@@ -1,0 +1,32 @@
+<% items.forEach((item )=>{ %> 
+
+    <tr>
+
+            <td>
+                <input type="checkbox" name="cid" value="5a9e5a96da67bc078421d7d6" />
+            </td>
+
+            
+            <td>   <%= item.category %> </td>
+            <br>
+            <td>   <%= item.type %> </td>
+            <br>
+            <td>     <%= item.surface %></td>
+            <br>
+            <td>     <%= item.volume %></td>
+
+            <br>
+            <% item.comments.forEach((comment)=>{%>
+                <td>   <%= comment.auteur %> </td>
+                
+                     <br>
+                     <td>   <%= comment.auteur %> </td>
+                     <td>   <%= comment.comments %> </td>
+                <% } )%>
+            
+          
+      
+        </tr>
+
+
+    <% })%>
