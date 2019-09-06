@@ -39,6 +39,6 @@ var schema =  mongoose.Schema(
     
   },
   {timestamps:true});
-  module.exports = mongoose.model('Test',schema,'Test')
+  module.exports = mongoose.model('Test',schema)
 
  

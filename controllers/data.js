@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 const Data=require('../models/data');
-const Evolution = require('../models/evolution')
+// const Evolution = require('../models/evolution')
 exports.getData=(req,res,next)=>{
     Data.find({}).then((items)=>{
         console.log(items);
@@ -54,7 +54,7 @@ exports.postData=async(req,res,next)=>{
      _id, guid,elementId,level,status,category,name,volume,surface ,typeId,
      solidVolume, location,boundingBox,centroidElement,urlImage,
      bb_sectionBox_min,bb_sectionBox_max,eyePosition,forwardDirection,upDirection
-   })
+   });
    newData.save()
          .then(() => res.json(newData))
          .catch(err => res.status(400).json('Error: ' + err));
@@ -62,37 +62,37 @@ exports.postData=async(req,res,next)=>{
   
 }
 
-function updateData(req,res,next){
-    var i;
-    const level= req.body.level; 
-    const category=req.body.category; 
-    const name=req.body.name;
-    const volume=req.body.volume;
-    const surface=req.body.surface;
-    const typeId=req.body.typeId;
-    const solidVolume=req.body.solidVolume;
+// function updateData(req,res,next){
+   
+//     const level= req.body.level; 
+//     const category=req.body.category; 
+//     const name=req.body.name;
+//     const volume=req.body.volume;
+//     const surface=req.body.surface;
+//     const typeId=req.body.typeId;
+//     const solidVolume=req.body.solidVolume;
 
-     const location=req.body.location;
+//      const location=req.body.location;
      
-    const boundingBox=req.body.boundingBox;
-    const centroidElement=req.body.centroidElement;
+//     const boundingBox=req.body.boundingBox;
+//     const centroidElement=req.body.centroidElement;
 
-    const guid = req.body.guid;
-    if(Data.find({guid:guid}).countDocuments()===1){
-        Data.find({guid:guid}).then((data)=>{
-            data.level=level;
-            data.category=category;
-            data.name=name;
-            data.volume=volume;
-            data.surface=surface;
-            if(data.typeId!==typeId){data.typeId=typeId;i++ }
-            if(data.solidVolume!==solidVolume){data.solidVolume=solidVolume;i++ }
-            if(data.location!==location){data.location=location;i++ }
-            if(data.boundingBox!==boundingBox){data.boundingBox=boundingBox;i++ }
-            if(data.centroidElement!==centroidElement){data.centroidElement=centroidElement;i++ }
-        })
-    }
-    else{
-        Data.findByIdAndDelete
-    }
-}
+//     const guid = req.body.guid;
+//     if(Data.find({guid:guid}).countDocuments()===1){
+//         Data.find({guid:guid}).then((data)=>{
+//             data.level=level;
+//             data.category=category;
+//             data.name=name;
+//             data.volume=volume;
+//             data.surface=surface;
+//             if(data.typeId!==typeId){data.typeId=typeId;i++ }
+//             if(data.solidVolume!==solidVolume){data.solidVolume=solidVolume;i++ }
+//             if(data.location!==location){data.location=location;i++ }
+//             if(data.boundingBox!==boundingBox){data.boundingBox=boundingBox;i++ }
+//             if(data.centroidElement!==centroidElement){data.centroidElement=centroidElement;i++ }
+//         })
+//     }
+//     else{
+         
+//     }
+// }

@@ -16,8 +16,8 @@ var chunkSchema =  mongoose.Schema( {
         data: Buffer 
     }
 })
-chunkSchema.virtual('corverImagePath').get(function(){
-    if(this.binary !=null && this.coverImageType!= null){
-        return `data:charset=utf-8;base64,${this.binary.toString('base64')}`  
-    }})
+// chunkSchema.virtual('corverImagePath').get(function(){
+//     if(this.binary !=null && this.coverImageType!= null){
+//         return `data:charset=utf-8;base64,${this.binary.toString('base64')}`  
+//     }})
 module.exports = mongoose.model('fs.chunks',chunkSchema)
