@@ -4,80 +4,41 @@ var mongoose = require('mongoose');
 var schema =  mongoose.Schema( 
      
   {
-    "_id": {
-      "type": String
-    },
-    "id": {
-      "type": String
-    },
-    "level": {
-      "type": String
-    },
-    "status": {
-      "type": String
-    },
-    "category": {
-      "type": String
-    },
-    "type": {
-      "type": String
-    },
-    "volume": {
-      "type": String
-    },
-    "surface": {
-      "type": String
-    },
-    "compare": {
-          "typeId": { "type": String },
-          "volume": {  "$numberDouble": { "type": "String" } },
-          "location": { "LocationType": { "type": String },
-                    "Location_point01": { "X": { "$numberDouble": { "type": "String" } },
-                                          "Y": { "$numberDouble": { "type": "String" } },
-                                          "Z": {  "$numberDouble": { "type": "String"  }  } },
-                   "Location_point02": { "X": { "$numberDouble": { "type": "String" }  },
-                                         "Y": {  "$numberDouble": {  "type": "String" } },
-                                         "Z": { "$numberDouble": { "type": "Date" } } } },
-          "boundingBox": { "status": { "type": "String" },
-                        "BoundingBox_point01": { "X": { "$numberDouble": { "type": "String" }  },
-                                               "Y": { "$numberDouble": {  "type": "String" }  }, 
-                                                "Z": { "$numberDouble": { "type": "String" }  } },
-                        "BoundingBox_point02": { "X": {  "$numberDouble": {  "type": "String"  } },
-                                                "Y": {  "$numberDouble": { "type": "String"  } },
-                                                "Z": { "$numberDouble": { "type": "String"  }  }  } },
-          "centroidElement": {   "status": { "type": "String"  }, 
-                              "centroid": {  "X": {  "$numberDouble": {  "type": "String"   }  },
-                                             "Y": { "$numberDouble": { "type": "String"  } },
-                                              "Z": { "$numberDouble": { "type": "String" } }  } } },
-    "viewOrientation": {
-            "UrlImage": {  "type": "ObjectId" },
-            "bb_sectionBox_min": { "X": { "$numberDouble": { "type": "String" } },
-                                    "Y": {  "$numberDouble": { "type": "String"  } },
-                                    "Z": {  "$numberDouble": {  "type": "String" }  } },
+    _id: { type: mongoose.Schema.Types.ObjectId },
+    guid:{ type: String,require:true},
+    elementId: {  type: String },
+    level: {   type: String },
+    status: {    type: String  },
+    category: {  type: String  },
+    name: {  type: String },
+    volume: {  type: String },
+    surface: {  type: String },
+   
+    typeId: { type: String },
+    solidVolume: Number,
+    location: { LocationType: { type: String },
+                Location_point01: { X: Number, Y: Number, Z: Number },
+                Location_point02: { X:Number, Y: Number,  Z: Number} },
+    boundingBox: {  status: { type: String },
+                    BoundingBox_point01: { X: Number,  Y:Number, Z:Number },
+                    BoundingBox_point02: { X: Number,  Y: Number, Z: Number  } },
+    centroidElement: {  status: { type: String  }, 
+                        centroid: {  X: Number,  Y:Number,  Z: Number  } } ,
+    
+    urlImage:{  type: mongoose.Schema.Types.ObjectId } ,
+    bb_sectionBox_min: { X: Number, Y: Number, Z: Number },
 
-            "bb_sectionBox_max": { "X": {  "$numberDouble": { "type": "String"  } },
-                                  "Y": {"$numberDouble": { "type": "String"  } }, 
-                                  "Z": { "$numberDouble": {  "type": "String" } }  },
+    bb_sectionBox_max: { X: Number, Y: Number, Z: Number  },
 
-            "eyePosition": {      "X": {  "$numberDouble": { "type": "String"  } },
-                                    "Y": {"$numberDouble": { "type": "String"  } }, 
-                                  "Z": { "$numberDouble": {  "type": "String" } }  },
+    eyePosition: { X: Number, Y: Number, Z: Number },
 
-            "forwardDirection": {
-                                    "X": {  "$numberDouble": { "type": "String"  } },
-                                    "Y": {"$numberDouble": { "type": "String"  } }, 
-                                  "Z": { "$numberDouble": {  "type": "String" } } },
+    forwardDirection: { X: Number, Y: Number,Z: Number },
 
-            "upDirection": {
-                                    "X": {  "$numberDouble": { "type": "String"  } },
-                                    "Y": {"$numberDouble": { "type": "String"  } }, 
-                                    "Z": { "$numberDouble": {  "type": "String" } }    }
-    },
-    "comments": { "type": [ {auteur:String, comments:String,date: Date} ]
-    },
-    "evolutions": { "type": [ {date: Date,auteur:String, comments:String} ]
-    }
-  });
-  module.exports = mongoose.model('Revit',schema,'Test')
+    upDirection: { X: Number, Y: Number,  Z: Number    }
+     
+    
+  },
+  {timestamps:true});
+  module.exports = mongoose.model('Test',schema,'Test')
 
  
