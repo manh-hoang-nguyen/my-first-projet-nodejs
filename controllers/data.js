@@ -6,6 +6,7 @@ const Evolution = require('../models/evolution');
 const View =require('../models/view');
 
 exports.getData=(req,res,next)=>{
+    console.log("xxx")
     Data.find({}).then((items)=>{
         
         res.json(items) }) 

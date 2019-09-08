@@ -1,23 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const Data=require('../models/data')
-const chunk=require('../models/chunk')
+
 
 const dataController = require('../controllers/data')
 
 router.get('/', dataController.getData)
 
-router.get('/chunk',  (req,res)=>{
-    chunk.find({}).then((chunks)=>{
-     console.log(chunks);
-       var thumb =  chunks.toString('base64');
-     res.render('datas/chunk',{
-        chunks,
-        img:thumb
-     })
-    }) 
-    
- })
+ 
 
  //get by id
 router.get('/:id', async(req,res)=>{

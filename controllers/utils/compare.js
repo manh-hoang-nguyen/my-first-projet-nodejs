@@ -1,16 +1,17 @@
  
  exports.locationCompare=(location1,location2)=>{
       
-    if(location2.LocationType==='Point'){
-       
-    }
+   //console.log(location2);
+  
     switch(location2.LocationType) {
-        case 'Point':
-            if( location2.Location_point01.X===location1.Location_point01.X
-                &location2.Location_point01.Y===location1.Location_point01.Y
-                &location2.Location_point01.Z===location1.Location_point01.Z
-                ) return true;
+        case 'Point': 
+                const x=location2.Location_point01.X===location1.Location_point01.X;
+                const y=location2.Location_point01.Y===location1.Location_point01.Y;
+                const z=location2.Location_point01.Z===location1.Location_point01.Z;
+                 
+                if( x &y &z ) return true;
                 else return false;
+                
         case 'Curve':
             if( location2.Location_point01.X===location1.Location_point01.X
                 &location2.Location_point01.Y===location1.Location_point01.Y
@@ -38,9 +39,14 @@ exports.bBoxComparer=(bB1,bB2)=>{
     else return true;
 }
 exports.centroidCompare=(cen1,cen2)=>{
-    if( cen1.centroid.X===cen2.centroid.X
-        &cen1.centroid.Y===cen2.centroid.Y
-        &cen1.centroid.Z===cen2.centroid.Z
-        ) return true;
-        else return false;
+    switch(cen1.status) {
+        case '1':
+                if( cen1.centroid.X===cen2.centroid.X
+                    &cen1.centroid.Y===cen2.centroid.Y
+                    &cen1.centroid.Z===cen2.centroid.Z
+                    ) return true;
+                    else return false;
+        case '0': return true;
+    }
+   
 }
