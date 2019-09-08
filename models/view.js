@@ -16,6 +16,6 @@ const viewSchema=new mongoose.Schema( {
     forwardDirection: { X: Number, Y: Number,Z: Number },
 
     upDirection: { X: Number, Y: Number,  Z: Number    }
-} );
+},{timestamps:true} );
 
-module.exports=mongoose.model('Test',viewSchema)
+module.exports=mongoose.model('View',viewSchema)

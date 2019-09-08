@@ -38,7 +38,10 @@ router.put('/:id',(req,res)=> {
 
 })
 
+//change status element deleted
+router.post('/statusChange',dataController.statusChange);
 
+//DELETE BY ID
 router.delete('/:id',(req,res)=> {
    Data.findByIdAndDelete(req.params.id)
    .then(() => res.json('Exercise deleted.')).then(res.send('Delete succces'))

@@ -6,10 +6,11 @@ const commentSchema=new mongoose.Schema( {
         required:true,
         ref:'Data'
     },
-    comment:[{
+    comments:[{
         auteur:{ type:String,  required:true },
         content:{  type:String, required:true },
-        datetime:new Date()}]
-} );
+        datetime: Date}]
+},
+{timestamps:true} );
 
 module.exports=mongoose.model('Comment',commentSchema)

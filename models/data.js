@@ -12,8 +12,7 @@ var schema =  mongoose.Schema(
     category: {  type: String  },
     name: {  type: String },
     volume: {  type: String },
-    surface: {  type: String },
-   
+    surface: {  type: String }, 
     typeId: { type: String },
     solidVolume: Number,
     location:         { LocationType: { type: String },
@@ -26,6 +25,6 @@ var schema =  mongoose.Schema(
                         centroid: {  X: Number,  Y:Number,  Z: Number  } }  
   },
   {timestamps:true});
-  module.exports = mongoose.model('Test',schema)
+  module.exports = mongoose.model('Data',schema)
 
  
