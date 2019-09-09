@@ -4,6 +4,7 @@ const Compare=require('./utils/compare')
 const Comment=require('../models/comment');
 const Evolution = require('../models/evolution');
 const View =require('../models/view');
+var async      = require("async");
 
 exports.getData=(req,res,next)=>{
     console.log("xxx")
@@ -29,10 +30,50 @@ exports.statusChange = async (req,res,next)=>{
  
 }
 
+exports.postMultipleData =(req,res,next)=>{
+    //https://stackoverflow.com/questions/34791471/cant-send-multiple-objects-in-array-via-rest-client-insomnia
+    async.mapSeries(req.body, function iterator(item, cb){
+        const _id= mongoose.Types.ObjectId();
+        const status="new";
+        
+        const guid = item.guid;
+        const elementId = item.elementId;
+        const level= item.level;
+        
+        const category=item.category; 
+        const name=item.name;
+        const volume=item.volume;
+        const surface=item.surface;
+        const typeId=item.typeId;
+        const solidVolume=item.solidVolume; 
+        const location=item.location; 
+        const boundingBox=item.boundingBox;
+        const centroidElement=item.centroidElement;
+         
+        const auteur= item.auteur;
+        const comment=item.comment;
+        const newData =  new Data({ 
+            _id, guid,elementId,level,status,category,name,volume,surface,typeId,
+            solidVolume, location,boundingBox,centroidElement  
+          });
+           
+        newData.save(function(error){
+            cb(error, newData);
+        });
+        
+        
+
+    }, function done(error, datas){
+        res.json(error ? { message: "could not create transfer because " + error } : datas);
+  });
+}
+
+
+
 exports.postData=(req,res,next)=>{
     const _id= mongoose.Types.ObjectId();
     const status="new";
-
+    
     const guid = req.body.guid;
     const elementId = req.body.elementId;
     const level= req.body.level;

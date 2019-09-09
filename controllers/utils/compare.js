@@ -26,8 +26,9 @@
       }
 }
 exports.bBoxComparer=(bB1,bB2)=>{
-    if(bB1.status==='1'){
-        if( bB1.BoundingBox_point01.X===bB2.BoundingBox_point01.X
+    switch(bB1.status==='1'){
+     case '1' :
+           if( bB1.BoundingBox_point01.X===bB2.BoundingBox_point01.X
             &bB1.BoundingBox_point01.Y===bB2.BoundingBox_point01.Y
             &bB1.BoundingBox_point01.Z===bB2.BoundingBox_point01.Z
             &bB1.BoundingBox_point02.X===bB2.BoundingBox_point02.X
@@ -35,8 +36,11 @@ exports.bBoxComparer=(bB1,bB2)=>{
             &bB1.BoundingBox_point02.Z===bB2.BoundingBox_point02.Z
             ) return true;
             else return false;
+    case '0': return true;
+                   
+        
     }
-    else return true;
+     
 }
 exports.centroidCompare=(cen1,cen2)=>{
     switch(cen1.status) {

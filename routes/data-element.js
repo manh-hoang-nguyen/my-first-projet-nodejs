@@ -42,4 +42,7 @@ router.delete('/:id',(req,res)=> {
 
 //post data
  router.post('/add',dataController.postData)
+
+ //post multiple data
+ router.post('/addMultiple',dataController.postMultipleData)
 module.exports= router;
