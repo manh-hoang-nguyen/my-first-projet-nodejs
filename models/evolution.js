@@ -1,12 +1,13 @@
 const mongoose = require('mongoose');
  
 const evolutionSchema=new mongoose.Schema( {
-    dataId:{
-        type:mongoose.Schema.Types.ObjectId,
+    guid:{
+        type:String,
         required:true,
         ref:'Data'
     },
     comments:[{
+        v:{type:String,  required:true},
         auteur:{ type:String,  required:true },
         content:{  type:String, required:true },
         datetime: Date}]

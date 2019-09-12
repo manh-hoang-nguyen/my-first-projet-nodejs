@@ -26,7 +26,7 @@
       }
 }
 exports.bBoxComparer=(bB1,bB2)=>{
-    switch(bB1.status==='1'){
+    switch(bB1.status ){
      case '1' :
            if( bB1.BoundingBox_point01.X===bB2.BoundingBox_point01.X
             &bB1.BoundingBox_point01.Y===bB2.BoundingBox_point01.Y

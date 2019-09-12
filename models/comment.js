@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
  
 const commentSchema=new mongoose.Schema( {
-    dataId:{
-        type:mongoose.Schema.Types.ObjectId,
+    guid:{
+        type:String,
         required:true,
         ref:'Data'
     },

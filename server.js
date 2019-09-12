@@ -12,7 +12,7 @@ const dataRouter = require('./routes/data-element');
 const viewRouter=require('./routes/view');
 const commentRouter=require('./routes/comment');
 const evolutionRouter=require('./routes/evolution');
-
+const versionRouter=require('./routes/version');
 
 app.use(bodyParser.json({  extended: true }));
 app.set('view engine', 'ejs');
@@ -45,6 +45,7 @@ app.use('/data',dataRouter);
 app.use('/view',viewRouter);
 app.use('/comment',commentRouter);
 app.use('/evolution',evolutionRouter);
+app.use('/version',versionRouter);
 
 app.use(bodyParser.json()); //application/json
 
