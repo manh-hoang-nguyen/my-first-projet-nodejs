@@ -9,7 +9,7 @@ const View =require('../models/view');
 var async   = require("async");
 
 exports.getData=(req,res,next)=>{
-    console.log("xxx")
+    
     Data.find({}).then((items)=>{
         
         res.json(items) }) 
