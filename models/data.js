@@ -10,6 +10,7 @@ var schema =  mongoose.Schema(
     status: {    type: String  },
     version:[{ 
                 v:{type:Number},
+                identifiant:{type:String},
                 level: {   type: String }, 
                 category: {  type: String  },
                 name: {  type: String },

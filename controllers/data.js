@@ -44,6 +44,13 @@ exports.postMultipleData =async (req,res,next)=>{
             version.save().then((vs)=>{
                 console.log('First version created')
             }); //OK
+            v=1;
+            async.mapSeries(req.body.dataBody, function iterator(item, cb){   
+                createOrUpdatedata(item,versionChange,v,cb,auteur,content);
+                  
+                }, function done(error, datas){
+                    res.json(error ? { message: "could not create transfer because " + error } : datas);
+            });
         } 
         else{
             if(versionChange==1){
@@ -55,12 +62,9 @@ exports.postMultipleData =async (req,res,next)=>{
                     Version.findOneAndUpdate({},{$push: {version: v,auteur:auteur,comment:content}},{new:true})
                             .then((version)=>{ console.log('add new version: '+version.version.length)}); 
                      //https://stackoverflow.com/questions/34791471/cant-send-multiple-objects-in-array-via-rest-client-insomnia
-                            async.mapSeries(req.body.dataBody, function iterator(item, cb){
-                                
-                                 
+                    async.mapSeries(req.body.dataBody, function iterator(item, cb){   
                             createOrUpdatedata( item,versionChange,v,cb,auteur,content);
-                             
-                                console.log(v);
+                              
                             }, function done(error, datas){
                                 res.json(error ? { message: "could not create transfer because " + error } : datas);
                         });
@@ -90,7 +94,7 @@ exports.postMultipleData =async (req,res,next)=>{
  
 }
 
-function createOrUpdatedata( item,versionChange,v,cb,auteur,content){
+function createOrUpdatedata( item,versionChange,v,cb,auteur,comment){
     const _id= mongoose.Types.ObjectId();
      
         
@@ -98,26 +102,27 @@ function createOrUpdatedata( item,versionChange,v,cb,auteur,content){
         
         const guid = item.guid;
         const elementId = item.elementId;
-        const level= item.level;
+        const identifiant=item.version.identifiant;
+        const level= item.version.level;
         
-        const category=item.category; 
-        const name=item.name;
-        const volume=item.volume;
-        const surface=item.surface;
-        const typeId=item.typeId;
-        const solidVolume=item.solidVolume; 
-        const location=item.location; 
-        const boundingBox=item.boundingBox;
-        const centroidElement=item.centroidElement;
+        const category=item.version.category; 
+        const name=item.version.name;
+        const volume=item.version.volume;
+        const surface=item.version.surface;
+        const typeId=item.version.typeId;
+        const solidVolume=item.version.solidVolume; 
+        const location=item.version.location; 
+        const boundingBox=item.version.boundingBox;
+        const centroidElement=item.version.centroidElement;
          
        
          
  Data.find({guid:guid}).countDocuments().then((total)=>
 { 
-    if(total!==0) {  updateData(item,versionChange,v,cb,auteur,content ); }
+    if(total!==0) {  updateData(item,versionChange,v,cb,auteur,comment ); }
     if(total===0) {
         
-        const version=[{v,level,category,name,volume,surface,typeId,
+        const version=[{v,identifiant,level,category,name,volume,surface,typeId,
                         solidVolume,location,boundingBox,centroidElement}];
        
         const newData =  new Data({ 
@@ -139,12 +144,10 @@ function createOrUpdatedata( item,versionChange,v,cb,auteur,content){
                 comments:[{
                     v:v,
                     auteur:auteur,
-                    content:content,
+                    content:comment,
                     datetime: new Date()
                 }] })
             newEvolution.save();
-        
-        
 
         const newView = new View({ guid:guid})
         newView.save();
@@ -218,16 +221,19 @@ exports.postData=(req,res,next)=>{
 
 async function  updateData (item,versionChange,v,cb,auteur,content  ){
   
-        const level= item.level; 
-        const category=item.category; 
-        const name=item.name;
-        const volume=item.volume;
-        const surface=item.surface;
-        const typeId=item.typeId;
-        const solidVolume=item.solidVolume; 
-        const location=item.location; 
-        const boundingBox=item.boundingBox;
-        const centroidElement=item.centroidElement; 
+        const identifiant=item.version.identifiant;
+        const level= item.version.level;
+        
+        const category=item.version.category; 
+        const name=item.version.name;
+        const volume=item.version.volume;
+        const surface=item.version.surface;
+        const typeId=item.version.typeId;
+        const solidVolume=item.version.solidVolume; 
+        const location=item.version.location; 
+        const boundingBox=item.version.boundingBox;
+        const centroidElement=item.version.centroidElement;
+     
         const guid = item.guid;
         
         const data =await Data.findOne({guid:guid});
@@ -237,60 +243,57 @@ async function  updateData (item,versionChange,v,cb,auteur,content  ){
          if(versionChange==0){
            
              if(j>1){
-                const typeCompare =(data.version[j-2].typeId===typeId)? true:false;
-                const volumeCompare=(data.version[j-2].solidVolume===solidVolume)? true:false;
-                const locationCompare=Compare.locationCompare(data.version[j-2].location,location);
-                const bBoxComparer=Compare.bBoxComparer(data.version[j-2].boundingBox,boundingBox);
-                const centroidCompare=Compare.centroidCompare(data.version[j-2].centroidElement,centroidElement);
+                 
+                const typeCompare =(data.version[j-1].typeId===typeId)? true:false;
+                const volumeCompare=(data.version[j-1].solidVolume===solidVolume)? true:false;
+                const locationCompare=Compare.locationCompare(data.version[j-1].location,location);
+                const bBoxComparer=Compare.bBoxComparer(data.version[j-1].boundingBox,boundingBox);
+                const centroidCompare=Compare.centroidCompare(data.version[j-1].centroidElement,centroidElement);
                   
             if(typeCompare===false){data.version.typeId=typeId }
             if(volumeCompare===false){data.version.solidVolume=solidVolume }
             if(locationCompare===false){data.version.location=location }
             if(bBoxComparer===false){data.version.boundingBox=boundingBox }
             if(centroidCompare===false){data.version.centroidElement=centroidElement }
-
+            console.log('xx');
             if(typeCompare&volumeCompare&locationCompare&bBoxComparer&centroidCompare){
                 data.status='same';
+
                 }
             else{ 
                 data.status='modified';
-                let l;
-                const evolution= await Evolution.findOne({guid:guid});       
-                               
-                l=evolution.comments.length-1;
-                  
                 
-                evolution.comments[l].v=v;
-                evolution.comments[l].auteur=auteur;
-                evolution.comments[l].content=content;
-                await evolution.save(function(error){
-                    
-                }) 
+                 
+                pushEvolution(guid,v,auteur,content);
+               
+               
+                data.version[j-1].typeId=typeId;
+                data.version[j-1].solidVolume=solidVolume;
+                data.version[j-1].location=location;
+                data.version[j-1].boundingBox=boundingBox
+                data.version[j-1].centroidElement=centroidElement;
+               
                                  
                 }
-            
-            data.version[j-1].level=level;
-            data.version[j-1].category=category;
-            data.version[j-1].name=name;
-            data.version[j-1].volume=volume;
-            data.version[j-1].surface=surface;
-            data.version[j-1].typeId=typeId;
-            data.version[j-1].solidVolume=solidVolume;
-            data.version[j-1].location=location;
-            data.version[j-1].boundingBox=boundingBox
-            data.version[j-1].centroidElement=centroidElement;
-            data.save(function(error){
-                cb(error, data);
-            });
+                data.version[j-1].identifiant=identifiant;
+                data.version[j-1].level=level;
+                data.version[j-1].category=category;
+                data.version[j-1].name=name;
+                data.version[j-1].volume=volume;
+                data.version[j-1].surface=surface;
+                data.save(function(error){
+                    cb(error, data);
+                }); 
                  
              }
             else{
+                data.version[0].identifiant=identifiant;
                 data.version[0].level=level;
                 
                 data.version[0].category=category;
                 data.version[0].name=name;
                 data.version[0].volume=volume;
-                data.version.surface=surface;
+                data.version[0].surface=surface;
                 data.version[0].typeId=typeId;
                 data.version[0].solidVolume=solidVolume;
                 data.version[0].location=location;
@@ -320,14 +323,11 @@ async function  updateData (item,versionChange,v,cb,auteur,content  ){
             }
             else {
                 status='modified';
-                updateEvolution={
-                    $push:{comments:{v,auteur,content}}
-                };
-                console.log( Evolution.find({guid:guid}))
-                Evolution.updateOne({guid:guid},updateEvolution);
+                console.log('v');
+                pushEvolution(guid,v,auteur,content);
                 }
              
-
+                 
 
             let objectToPush = {v:v,level:level,category:category,name:name,surface:surface,
                 typeId:typeId,solidVolume:solidVolume,location:location,
@@ -351,4 +351,23 @@ async function  updateData (item,versionChange,v,cb,auteur,content  ){
          }
       
     
+}
+ function pushEvolution(guid,v,auteur,content){
+    console.log('rdd');
+    console.log(guid);
+    const comment ={
+    "v":v,
+    "auteur":auteur,
+    "content":content,
+    "datetime":new Date()
+    };
+
+
+
+//https://stackoverflow.com/questions/33049707/push-items-into-mongo-array-via-mongoose
+Evolution.findOneAndUpdate({guid:guid},{$push: {comments: comment}},{new:true,upsert:true})
+.then((evolution) =>console.log(evolution));
+}
+function updateEvolution(guid,v,auteur,content){
+
 }
