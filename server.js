@@ -14,7 +14,9 @@ const commentRouter=require('./routes/comment');
 const evolutionRouter=require('./routes/evolution');
 const versionRouter=require('./routes/version');
 
-app.use(bodyParser.json({  extended: true }));
+//app.use(bodyParser.json({  extended: true }));
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 app.set('view engine', 'ejs');
 app.set('views',__dirname +'/views')
 app.set('layout','layouts/layout')
