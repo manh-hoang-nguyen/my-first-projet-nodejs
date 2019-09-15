@@ -102,18 +102,18 @@ function createOrUpdatedata( item,versionChange,v,cb,auteur,comment){
         
         const guid = item.guid;
         const elementId = item.elementId;
-        const identifiant=item.version.identifiant;
-        const level= item.version.level;
+        const identifiant=item.version[0].identifiant;
+        const level= item.version[0].level;
         
-        const category=item.version.category; 
-        const name=item.version.name;
-        const volume=item.version.volume;
-        const surface=item.version.surface;
-        const typeId=item.version.typeId;
-        const solidVolume=item.version.solidVolume; 
-        const location=item.version.location; 
-        const boundingBox=item.version.boundingBox;
-        const centroidElement=item.version.centroidElement;
+        const category=item.version[0].category; 
+        const name=item.version[0].name;
+        const volume=item.version[0].volume;
+        const surface=item.version[0].surface;
+        const typeId=item.version[0].typeId;
+        const solidVolume=item.version[0].solidVolume; 
+        const location=item.version[0].location; 
+        const boundingBox=item.version[0].boundingBox;
+        const centroidElement=item.version[0].centroidElement;
          
        
          
@@ -221,18 +221,18 @@ exports.postData=(req,res,next)=>{
 
 async function  updateData (item,versionChange,v,cb,auteur,content  ){
   
-        const identifiant=item.version.identifiant;
-        const level= item.version.level;
+        const identifiant=item.version[0].identifiant;
+        const level= item.version[0].level;
         
-        const category=item.version.category; 
-        const name=item.version.name;
-        const volume=item.version.volume;
-        const surface=item.version.surface;
-        const typeId=item.version.typeId;
-        const solidVolume=item.version.solidVolume; 
-        const location=item.version.location; 
-        const boundingBox=item.version.boundingBox;
-        const centroidElement=item.version.centroidElement;
+        const category=item.version[0].category; 
+        const name=item.version[0].name;
+        const volume=item.version[0].volume;
+        const surface=item.version[0].surface;
+        const typeId=item.version[0].typeId;
+        const solidVolume=item.version[0].solidVolume; 
+        const location=item.version[0].location; 
+        const boundingBox=item.version[0].boundingBox;
+        const centroidElement=item.version[0].centroidElement;
      
         const guid = item.guid;
         
@@ -261,11 +261,9 @@ async function  updateData (item,versionChange,v,cb,auteur,content  ){
 
                 }
             else{ 
-                data.status='modified';
-                
+                data.status='modified'; 
                  
-                pushEvolution(guid,v,auteur,content);
-               
+                pushEvolution(guid,v,auteur,content); 
                
                 data.version[j-1].typeId=typeId;
                 data.version[j-1].solidVolume=solidVolume;
