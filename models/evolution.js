@@ -7,7 +7,7 @@ const evolutionSchema=new mongoose.Schema( {
         ref:'Data'
     },
     comments:[{
-        v:{type:String,  required:true},
+        v:{type:int,  required:true},
         auteur:{ type:String,  required:true },
         content:{  type:String, required:true },
         datetime: Date}]

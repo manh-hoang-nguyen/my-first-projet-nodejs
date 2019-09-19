@@ -25,7 +25,14 @@ var schema =  mongoose.Schema(
                                 BoundingBox_point01: { X: Number,  Y:Number, Z:Number },
                                 BoundingBox_point02: { X: Number,  Y: Number, Z: Number  } },
                 centroidElement: {  status: { type: String  }, 
-                                    centroid: {  X: Number,  Y:Number,  Z: Number  } } }],
+                                    centroid: {  X: Number,  Y:Number,  Z: Number  } } }
+          ],
+    history:[{
+      v:{type:int,  required:true},
+      auteur:{ type:String,  required:true },
+      comment:{  type:String, required:true },
+      datetime: {type:Date, default:Date.now}
+    }]
    
   },
   {timestamps:true});
