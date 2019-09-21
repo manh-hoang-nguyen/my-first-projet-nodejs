@@ -108,7 +108,14 @@ exports.post=async(req,res,next)=>{
                     new History({guid:guid,status:status,modifications:[{v:v,auteur:auteur,comment:content}]}).save().then(console.log("new history created"));
                     break;
             case 'deleted':
-                History.findOneAndUpdate({guid:guid},{$set: {status:status}},
+                Comparison.findOneAndRemove({guid:guid}).then(console.log('comparison deleted'));
+                let update={
+                    $set: {status:status},
+                    $push:{
+                        modifications:{ v:v,auteur:auteur,comment:content}
+                    }
+                }
+                History.findOneAndUpdate({guid:guid},update,
                     function(data,error){ cb(data,error);  });                                    
                     break;
         }
