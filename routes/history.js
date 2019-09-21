@@ -8,7 +8,7 @@ router.post('/comment',historyController.postComment);
 // router.post('/modification',historyController.postComment);
 
 //GET 
-router.get('/',historyController.get);
+router.get('/',historyController.getHistory);
 //DELETE
 router.delete('/',historyController.deleteHistory);
  
