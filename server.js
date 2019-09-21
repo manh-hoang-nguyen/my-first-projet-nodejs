@@ -8,12 +8,12 @@ const expressLayouts = require('express-ejs-layouts');
 const bodyParser = require("body-parser");
 
 const indexRouter=require('./routes/index');
-const dataRouter = require('./routes/data-element');
+ 
 const viewRouter=require('./routes/view');
-const commentRouter=require('./routes/comment');
-const evolutionRouter=require('./routes/evolution');
+const historyRouter=require('./routes/history');
+ 
 const versionRouter=require('./routes/version');
-
+const comparisonRouter=require('./routes/comparison');
 //app.use(bodyParser.json({  extended: true }));
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
@@ -43,12 +43,12 @@ db.on('error',()=>{
   });
 
 app.use('/', indexRouter);
-app.use('/data',dataRouter);
+ 
 app.use('/view',viewRouter);
-app.use('/comment',commentRouter);
-app.use('/evolution',evolutionRouter);
+app.use('/history',historyRouter);
+ 
 app.use('/version',versionRouter);
-
+app.use('/comparison',comparisonRouter);
 app.use(bodyParser.json()); //application/json
 
 app.listen(process.env.PORT||3000)
