@@ -60,11 +60,13 @@ exports.post=async(req,res,next)=>{
                 
                     if(v==l )
                     {
-                        
-                        update={
+                        console.log({modifications: {v:v,auteur:auteur,comment:content}});
+                        console.log({status:status});
+                       let update={
                             $push: {modifications: {v:v,auteur:auteur,comment:content}},
                             $set:{status:status}
                         };
+                       
                         History.findOneAndUpdate({guid:guid},update,
                            function(error){console.log('modifications history updated')} );
 
