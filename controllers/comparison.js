@@ -88,7 +88,14 @@ exports.post=async(req,res,next)=>{
                                 boundingBox:boundingBox ,
                                 centroidElement:centroidElement }
                             }
-                             
+                            let update={
+                                $push: {modifications: {v:v,auteur:auteur,comment:content}},
+                                $set:{status:status}
+                            };
+                           
+                            History.findOneAndUpdate({guid:guid},update,
+                               function(error){console.log('modifications history updated')} );
+                               
                             Comparison.findOneAndUpdate({guid:guid},{$push:objectToPush}, {new:true,upsert:true},
                                          (data,error)=>{
                                              cb(data,error); });
