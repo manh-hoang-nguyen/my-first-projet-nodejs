@@ -44,8 +44,8 @@ exports.post=async(req,res,next)=>{
           
         switch(status){
             case 'same':
-                    update={  $set:{status:status} };
-                    History.findOneAndUpdate({guid:guid},update,
+                   let update1={  $set:{status:status} };
+                    History.findOneAndUpdate({guid:guid},update1,
                         function(data,error){ cb(data,error); } );
                 
                 if(v>l )
