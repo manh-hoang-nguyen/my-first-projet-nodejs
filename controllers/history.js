@@ -13,10 +13,12 @@ exports.postComment=(req,res,next)=>{
         const comment=req.body.comment;
         const datetime=Date.now();
         let obj={auteur,comment,datetime};
-         
-        History.findOneAndUpdate({guid:guid},
-                                {$push:{comments:{auteur,comment,datetime}}},
-                                 {new:true}).then((item)=>{ res.json(obj)});
+        
+        History.findOneAndUpdate({guid:guid}, {$push:{comments:{auteur,comment,datetime}}}, {new:true})
+                .then((item)=>{ 
+                                let i=item.comments.length;
+                                
+                                res.json(item.comments[i-1])});
                                 
 }
 
