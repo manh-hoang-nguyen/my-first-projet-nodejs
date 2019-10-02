@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const versionController = require('../controllers/version');
-//POST  
+// /project/version =>POST  
 router.post('/',versionController.createVersion)
-//GET  
-router.get('/',versionController.getAllVersion)
+// /project/version =>GET  
+router.get('/',versionController.get)
  
-//DELETE  
-router.delete('/',versionController.deleteVersion)
+// /project/version =>DELETE  
+//router.delete('/',versionController.deleteVersion)
  
 module.exports= router;

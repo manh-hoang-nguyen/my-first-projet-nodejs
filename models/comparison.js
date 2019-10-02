@@ -1,6 +1,10 @@
 var mongoose = require('mongoose');
   
 var schema =  mongoose.Schema( {
+    projectId:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'project'
+    },
     guid:{
         type:String,
         required:true
@@ -22,5 +26,7 @@ var schema =  mongoose.Schema( {
         }]
 },
 {timestamps:true});
+
+schema.index({projectId:1,guid:1}); //define index
 
 module.exports = mongoose.model('comparison',schema)

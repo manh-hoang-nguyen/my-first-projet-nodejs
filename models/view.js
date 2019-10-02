@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
  
 const viewSchema=new mongoose.Schema( {
+    projectId:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'project'
+    },
     guid:{
         type:String,
         required:true,

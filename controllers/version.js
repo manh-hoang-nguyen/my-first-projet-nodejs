@@ -1,35 +1,32 @@
 const Version = require('../models/version');
+const Project=require('../models/project');
 
-exports.createVersion=   (req,res,next)=>{
-  const auteur = req.body.auteur;
+exports.createVersion=   (req,res)=>{
+  const projectId= req.body.projectId;
+  const userMail = req.body.userMail;
   const comment=req.body.comment;
-      Version.find().countDocuments().then(async(count)=> {
-        if(count===0){   
-                    const version = new Version({version:[{v:1,auteur:auteur,comment:comment}]})
-                    version.save() 
-                    .then((version) => res.json(version))
-                    .catch(err => res.status(400).json('Error: ' + err));
-                    } 
-          else{ 
-            const item = await Version.findOne();   
-            var newVersion={v:item.version.length+1,auteur:auteur,comment:comment}; 
-           
-            Version.findOneAndUpdate({},{$push: {version: newVersion}},{new:true,upsert:true})
-            .then((version) => res.json(version));  
-                }
-         
-    
-    });
-
-   
   
+  Project.findById(projectId)
+          .then((project)=>{
+            let newVersion={
+              v:project.version.length+1,
+              createdBy:userMail,
+              comment:comment
+            }
+
+  Project.findOneAndUpdate({_id:projectId},{$push: {version: newVersion}},{new:true,upsert:true})
+            .then((project)=>res.json(project));
+    });
+ 
 }
-exports.deleteVersion=(req,res,next)=>{
-  Version.findOneAndDelete({}).then(()=>{res.json("version deleted")});
-}
-exports.getAllVersion= (req,res,next)=>{
-    Version.findOne().then((version)=>{
-      res.json( version.version) 
-    }); 
-}
+ 
+exports.get= (req,res,next)=>{
+
+const projectId = req.body.projectId;
+
+Project.findById(projectId)
+        .then((project)=>{
+          res.json(project.version) 
+        })
+ }
  

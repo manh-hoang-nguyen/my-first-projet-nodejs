@@ -10,10 +10,11 @@ const bodyParser = require("body-parser");
 const indexRouter=require('./routes/index');
  
 const viewRouter=require('./routes/view');
-const historyRouter=require('./routes/history');
- 
+const historyRouter=require('./routes/history'); 
 const versionRouter=require('./routes/version');
 const comparisonRouter=require('./routes/comparison');
+const authRouter=require('./routes/auth');
+const projectRouter=require('./routes/project');
 //app.use(bodyParser.json({  extended: true }));
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
@@ -33,6 +34,7 @@ const mongoose=require('mongoose');
 // Make Mongoose use `findOneAndUpdate()`. Note that this option is `true`
 // by default, you need to set it to false.
 mongoose.set('useFindAndModify', false);
+mongoose.set('useCreateIndex', true)
 mongoose.connect(process.env.DATABASE_URL,{ useNewUrlParser: true });
 var db = mongoose.connection;
 db.on('error',()=>{
@@ -45,10 +47,11 @@ db.on('error',()=>{
 app.use('/', indexRouter);
  
 app.use('/view',viewRouter);
-app.use('/history',historyRouter);
- 
-app.use('/version',versionRouter);
+app.use('/history',historyRouter); 
+app.use('/project/version',versionRouter);
 app.use('/comparison',comparisonRouter);
+app.use(authRouter);
+app.use('/project',projectRouter);
 app.use(bodyParser.json()); //application/json
 
 app.listen(process.env.PORT||3000)

@@ -44,12 +44,13 @@ exports.post=async(req,res,next)=>{
           
         switch(status){
             case 'same':
+                    console.log('same');
                    let update1={  $set:{status:status} };
                     History.findOneAndUpdate({guid:guid},update1,
-                        function(data,error){ cb(data,error); } );
+                        function(data,error){console.log('modifications history updated')  } );
                 
                 if(v>l )
-                { 
+                { console.log('sameV>L');
                     Comparison.findOneAndUpdate({guid:guid},{$push:object},{new:true},function(data,error){
                         cb(data,error); 
                          });
@@ -57,7 +58,7 @@ exports.post=async(req,res,next)=>{
                 }
                 break;
             case 'modified':
-                
+                console.log('modified');
                     if(v==l )
                     {
                         console.log({modifications: {v:v,auteur:auteur,comment:content}});
@@ -79,7 +80,7 @@ exports.post=async(req,res,next)=>{
                     }
                     else{
                         if(v>l )
-                        {  
+                        {    
                             let objectToPush ={ 
                               data: { v:v,
                                 typeId:typeId ,
@@ -95,11 +96,11 @@ exports.post=async(req,res,next)=>{
                            
                             History.findOneAndUpdate({guid:guid},update,
                                function(error){console.log('modifications history updated')} );
-                               
+                               console.log({guid:guid});
                             Comparison.findOneAndUpdate({guid:guid},{$push:objectToPush}, {new:true,upsert:true},
                                          (data,error)=>{
                                              cb(data,error); });
-                            
+                                             
                         }
                     }
                    
@@ -113,26 +114,29 @@ exports.post=async(req,res,next)=>{
                                                     boundingBox:boundingBox,
                                                     centroidElement:centroidElement
                                                     }]})
-                                        .save(function(data,error){ cb(data,error); }) ;
+                                        .save(function(data,error){ 
+                                            console.log(data);
+                                            cb(data,error); }) ;
                     new History({guid:guid,status:status,modifications:[{v:v,auteur:auteur,comment:content}]}).save().then(console.log("new history created"));
                     break;
             case 'deleted':
                 Comparison.findOneAndRemove({guid:guid}).then(console.log('comparison deleted'));
-                let update={
+                let update3={
                     $set: {status:status},
                     $push:{
                         modifications:{ v:v,auteur:auteur,comment:content}
                     }
                 }
-                History.findOneAndUpdate({guid:guid},update,
+                History.findOneAndUpdate({guid:guid},update3,
                     function(data,error){ cb(data,error);  });                                    
                     break;
         }
        
 
     }, 
-    function done(error){
-        res.json(error ? { message: "could not create transfer because " + error } : 'succes');
+    function done(datas,error){
+        console.log(datas);
+        res.json(error ? { message: + error } : 'succes');
   });
 }
 
