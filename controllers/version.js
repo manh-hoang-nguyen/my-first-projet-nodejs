@@ -14,8 +14,10 @@ exports.createVersion=   (req,res)=>{
               comment:comment
             }
 
-  Project.findOneAndUpdate({_id:projectId},{$push: {version: newVersion}},{new:true,upsert:true})
-            .then((project)=>res.json(project));
+            project.version.push(newVersion)
+                            .then((project)=>res.json(project));
+  /*Project.findOneAndUpdate({_id:projectId},{$push: {version: newVersion}},{new:true,upsert:true})
+            .then((project)=>res.json(project));*/
     });
  
 }

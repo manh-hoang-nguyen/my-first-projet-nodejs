@@ -1,0 +1,57 @@
+.navbar-wrapper--2iBNP {
+    height: 60px;
+    left: 0;
+    position: relative;
+    right: 0;
+    top: 0px;
+    width: 100%;
+    z-index: 999;
+    background-color:#4267b2;
+}
+.btn-home{
+     
+    height: 60px;
+     
+    margin-right: 16px;
+    position: relative;
+    font-size: 15px;
+
+     
+}
+.btn-login-signup{
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+     
+      
+     border: 40px;
+     border-color: coral;
+    flex-direction: row;
+     
+    
+    align-items: center;
+     
+     
+    justify-content: center;
+     
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 5px 10px;
+    vertical-align: middle;
+     
+    font-size: 14px;
+    min-width: 32px;
+    min-height: 32px;
+    font-size: large;
+}
+
+.main-header__item-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+  }
+  .main-header__item {
+    margin: 0 1rem;
+    padding: 0;
+  }

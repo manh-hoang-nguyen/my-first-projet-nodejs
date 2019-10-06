@@ -14,4 +14,7 @@ router.post('/signup', authController.postSignup);
 
 router.post('/logout', authController.postLogout);
 
+//API
+router.post('/api/login', authController.login);
+
 module.exports = router;

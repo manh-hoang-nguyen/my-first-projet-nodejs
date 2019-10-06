@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const projectController = require('../controllers/project');
-
+const isAuthApi= require('../middleware/is-authAPI');
 // /project =>POST 
-router.post('/',projectController.create)
+router.post('/',isAuthApi,projectController.create)
 //GET  
-router.get('/',projectController.get)
+router.get('/',isAuthApi,projectController.get)
  
 //DELETE  
 router.delete('/',projectController.delete)

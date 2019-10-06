@@ -3,7 +3,8 @@ var mongoose = require('mongoose');
 var schema =  mongoose.Schema( {
     projectId:{
         type:mongoose.Schema.Types.ObjectId,
-        ref:'project'
+        ref:'Project',
+        required:true
     },
     guid:{
         type:String,

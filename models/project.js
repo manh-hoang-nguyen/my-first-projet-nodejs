@@ -6,19 +6,21 @@ var schema =  mongoose.Schema( {
         type:String,
         required:true 
     },
+    owner: {
+                    type:mongoose.Schema.Types.ObjectId,
+                    require:true,
+                    ref:'User'
+            },
+    guest:[{user:{type:mongoose.Schema.Types.ObjectId}}] ,
     version:[
        { v:{type:Number,require:true},
         createdBy:{ type: String,  require:true  },
         comment:{  type:String, require:true }
         }
-    ],
-    owner: {
-                    type:mongoose.Schema.Types.ObjectId,
-                    require:true,
-                    ref:'user'
-            },
-    guest:[{user:{type:mongoose.Schema.Types.ObjectId}}] 
+    ]
 },
 {timestamps:true});
+
+schema.index({owner:1,name:1}); //define index
 
 module.exports = mongoose.model('project',schema)

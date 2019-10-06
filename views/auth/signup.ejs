@@ -1,5 +1,5 @@
-
-<main>
+<!-- 
+<div>
     <form class="login-form" action="/signup" method="POST">
         <div class="form-control">
             <label for="email">E-Mail</label>
@@ -15,4 +15,50 @@
         </div>
         <button class="btn" type="submit">Signup</button>
     </form>
-</main>
+</div> -->
+<div class="body-login-signup">
+<form action="/signup" class="login-form" method="POST">
+    <h1>Sign up</h1>
+    <div class="txtb">
+         
+            <input type="text"  name="firstName" id="firstName">
+            <span data-placeholder="First Name"></span>
+           
+        
+        </div>
+        <div  class="txtb">
+                <input type="text"  name="lastName" id="lastName">
+                <span data-placeholder="Last Name"></span>
+        </div>
+       
+    <div class="txtb">
+        <input type="email"  name="email" id="email">
+        <span data-placeholder="Email"></span>
+    </div>
+
+    <div class="txtb">
+        <input type="password" name="password" id="password">
+        <span data-placeholder="Password"></span>
+    </div>
+    <div class="txtb">
+            <input type="password" name="confirmPassword" id="confirmPassword">
+            <span data-placeholder="Confirm Password"></span>
+        </div>
+
+    <input type="submit" class="logbtn" value="Signup">
+
+     
+
+</form>
+
+<script type="text/javascript">
+    $(".txtb input").on("focus", function () {
+        $(this).addClass("focus");
+    });
+
+    $(".txtb input").on("blur", function () {
+        if ($(this).val() == "")
+            $(this).removeClass("focus");
+    });
+</script>
+</div>
