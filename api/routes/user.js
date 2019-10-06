@@ -7,7 +7,7 @@ const isAuthApi= require('../middleware/is-authAPI');
 router.get('/',isAuthApi,userController.getById)
 
 // /api/user/project
-router.get('/project',isAuthApi,userController.getProjects)
+router.post('/project',isAuthApi,userController.getProjects)
  
 //DELETE  
 router.delete('/',isAuthApi,userController.delete)
