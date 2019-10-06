@@ -5,7 +5,7 @@ const isAuthApi= require('../middleware/is-authAPI');
 // /api/comment =>POST
 router.post('/',isAuthApi,commentController.postComment);
 //GET 
-router.get('/',isAuthApi,commentController.getComments);
+router.post('/',isAuthApi,commentController.getComments);
 
 // api/comment =>DELETE
 router.delete('/',commentController.delete);

@@ -3,7 +3,7 @@ const router = express.Router();
 const comparisonController=require('../controllers/comparison');
 const isAuthApi= require('../middleware/is-authAPI');
 
-router.get('/',comparisonController.get);
+router.post('/',comparisonController.get);
 //router.post('/',isAuthApi,comparisonController.post);
  
 router.post('/modified-element',isAuthApi,comparisonController.modifiedElement);

@@ -7,7 +7,7 @@ const isAuthApi= require('../middleware/is-authAPI');
 // /project =>POST 
 router.post('/',isAuthApi,projectController.create) 
 // /project =>GET  
-router.get('/',isAuthApi,projectController.getById) 
+router.post('/',isAuthApi,projectController.getById) 
 // /project =>DELETE  
 router.delete('/',isAuthApi,projectController.deleteById)
  
@@ -16,7 +16,7 @@ router.delete('/',isAuthApi,projectController.deleteById)
 // /project/addVersion =>POST
 router.post('/version',isAuthApi,projectController.changeVersion);
 // /project/version =>GET
-router.get('/version', isAuthApi,projectController.getVersion);
+router.post('/version', isAuthApi,projectController.getVersion);
 
 
 module.exports= router;

@@ -8,7 +8,7 @@ router.post('/comment',isAuthApi,historyController.postComment);
 // router.post('/modification',historyController.postComment);
 
 //GET 
-router.get('/',isAuthApi,historyController.getHistory);
+router.post('/',isAuthApi,historyController.getHistory);
 //DELETE
 router.delete('/',isAuthApi,historyController.deleteHistory);
  
