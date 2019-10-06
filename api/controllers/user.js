@@ -12,7 +12,8 @@ exports.getById=(req,res,next)=>{
     const id= req.body.id;
     User.findById(id)
         .then((user)=>{
-            res.json(user);
+            let userName= user.name.firstName+ ' '+user.name.lastName;
+            res.json({email:user.email,userName:userName});
         })
 }
 
