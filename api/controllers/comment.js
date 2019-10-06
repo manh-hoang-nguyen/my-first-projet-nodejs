@@ -37,7 +37,7 @@ exports.getAllComments=async(req,res)=>{
                 allCommentObj= items.map((item)=>{
                     let commentObj={
                         guid:item.guid,
-                        comment:item.comments
+                        comments:item.comments
                     }
                     return commentObj;
                 }) 
