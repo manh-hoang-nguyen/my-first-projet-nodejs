@@ -14,9 +14,9 @@ router.delete('/',isAuthApi,projectController.deleteById)
 
 //VERSION
 // /project/addVersion =>POST
-router.post('/version',isAuthApi,projectController.changeVersion);
+router.post('/version/create',isAuthApi,projectController.changeVersion);
 // /project/version =>GET
-router.post('/version', isAuthApi,projectController.getVersion);
+router.post('/version/get', isAuthApi,projectController.getVersion);
 
 
 module.exports= router;
