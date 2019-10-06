@@ -29,6 +29,23 @@ exports.getComments=(req,res,next)=>{
                             
 }
 
+exports.getAllComments=async(req,res)=>{
+    const projectId=req.body.projectId;
+    let allCommentObj=[];
+   await History.find({projectId:projectId})
+            .then((items)=>{ 
+                allCommentObj= items.map((item)=>{
+                    let commentObj={
+                        guid:item.guid,
+                        comment:item.comments
+                    }
+                    return commentObj;
+                }) 
+            });
+    res.json(allCommentObj);
+}
+
+
 exports.delete=(req,res)=>{
     const projectId= req.body.projectId;
     const guid = req.body.guid;
