@@ -19,7 +19,7 @@ exports.modifiedElement=(req,res,next)=>{
     const v = req.body.version;
     async.mapSeries(req.body.data, function iterator(item, cb) {
  
-        const auteur = item.auteur;
+        const author = item.author;
         const content = item.comment;
 
         const guid = item.guid;
@@ -42,7 +42,7 @@ exports.modifiedElement=(req,res,next)=>{
             $push: {
                 modifications: {
                     v: v,
-                    auteur: auteur,
+                    author: author,
                     comment: content
                 }
             }
@@ -79,7 +79,7 @@ exports.newElement=(req,res,next)=>{
 
     async.mapSeries(req.body.data, function iterator(item, cb) {
   
-        const auteur = item.auteur;
+        const author = item.author;
         const content = item.comment;
 
         const guid = item.guid;
@@ -94,7 +94,7 @@ exports.newElement=(req,res,next)=>{
                 guid: guid,
                 modifications: [{
                     v: v,
-                    auteur: auteur,
+                    author: author,
                     comment: content
                 }]
             })

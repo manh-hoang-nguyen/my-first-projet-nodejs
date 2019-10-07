@@ -9,12 +9,12 @@ exports.deleteHistory=(req,res,next)=>{
 
 exports.postComment=(req,res,next)=>{
         const guid = req.body.guid;
-        const auteur=req.body.auteur;
+        const author=req.body.author;
         const comment=req.body.comment;
         const datetime=Date.now();
-        let obj={auteur,comment,datetime};
+        let obj={author,comment,datetime};
         
-        History.findOneAndUpdate({guid:guid}, {$push:{comments:{auteur,comment,datetime}}}, {new:true})
+        History.findOneAndUpdate({guid:guid}, {$push:{comments:{author,comment,datetime}}}, {new:true})
                 .then((item)=>{ 
                                 let i=item.comments.length;
                                 

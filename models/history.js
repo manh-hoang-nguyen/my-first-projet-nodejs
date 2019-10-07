@@ -14,7 +14,7 @@ var schema =  mongoose.Schema( {
     
     modifications:[{
             v:{type:Number},
-            auteur:{ type:String,  required:true },
+            author:{ type:String,  required:true },
             comment:{  type:String, required:true },
             datetime: {type:Date, default:Date.now}}],
        
